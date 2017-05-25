@@ -18,19 +18,19 @@ defmodule InfluxEx.Connection do
       @opt_app opts[:otp_app]
 
       def create_db(db_name) do
-        InfluxEx.Database.create_db(db_name, config)
+        InfluxEx.Database.create_db(db_name, config())
       end
 
       def drop_db(db_name) do
-        InfluxEx.Database.drop_db(db_name, config)
+        InfluxEx.Database.drop_db(db_name, config())
       end
 
       def write(data, db_name) do
-        InfluxEx.Writer.write(data, db_name, config)
+        InfluxEx.Writer.write(data, db_name, config())
       end
 
       def read(query, db_name) do
-        InfluxEx.Reader.read(query, db_name, config)
+        InfluxEx.Reader.read(query, db_name, config())
       end
 
 

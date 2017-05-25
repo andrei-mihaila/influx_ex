@@ -8,9 +8,9 @@ defmodule InfluxEx.Mixfile do
      elixir: "~> 1.1",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps,
+     deps: deps(),
      dialyzer: [plt_add_deps: true, plt_file: ".local.plt"],
-     docs: docs
+     docs: docs()
     ]
   end
 
@@ -31,10 +31,10 @@ defmodule InfluxEx.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:httpoison, "~> 0.9.2"},
+    [{:httpoison, "~> 0.11"},
      {:poison, "~> 2.0"},
-     {:earmark, "~> 0.1", only: :dev},
-     {:ex_doc, "~> 0.10", only: :dev}]
+     {:earmark, "~> 1.0", only: :dev},
+     {:ex_doc, "~> 0.14", only: :dev}]
   end
 
   def docs do
