@@ -61,6 +61,11 @@ defmodule InfluxEx.ConnectionTest do
     assert length(result[:points]) == 2
   end
 
+  test "query syntax error" do
+    assert {:error, _} = TestConnection.read("SELECT * FROM LIMIT", @db_name)
+    assert {:error, _} = TestConnection.read("SELECT * FROM LIMIT; SELECT * WHERE", @db_name)
+  end
+
   test "read" do
     [{:error, _}] = TestConnection.read("SELECT * FROM cpu", @db_name)
 

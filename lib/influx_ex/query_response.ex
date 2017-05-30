@@ -12,12 +12,13 @@ defmodule InfluxEx.QueryResponse do
   """
   @spec parse(HTTPoison.Response.t) :: __MODULE__.t
   def parse(%HTTPoison.Response{body: body, status_code: status_code}) do
-    result = body
-    |> Poison.decode!
+    result =
+      body
+      |> Poison.decode!
+
     %__MODULE__{
       status_code: status_code,
-      results: result["results"]
+      results: result["results"] || result
     }
   end
-
 end

@@ -4,10 +4,16 @@ defmodule InfluxEx.Reader do
 
   @spec read(String.t, String.t, map) :: list({:ok, list} | {:error, String.t})
   def read(query, db_name, config) do
-    %QueryResponse{results: results, status_code: 200} = %{db: db_name, q: query}
-    |> Connection.query(config)
+    response =
+      %{db: db_name, q: query}
+      |> Connection.query(config)
 
-    Enum.map(results, &parse_single_query_result/1)
+    case response do
+      %QueryResponse{results: results, status_code: 200} ->
+        Enum.map(results, &parse_single_query_result/1)
+      %QueryResponse{results: %{"error" => error}} ->
+        {:error, error}
+    end
   end
 
   @spec parse_single_query_result(map) :: {:ok, list} | {:error, String.t}
