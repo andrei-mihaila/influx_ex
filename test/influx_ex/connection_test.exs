@@ -1,5 +1,5 @@
 defmodule InfluxEx.ConnectionTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: false
   doctest InfluxEx.Connection
 
   @db_name "influx_ex_test_db"
@@ -10,15 +10,13 @@ defmodule InfluxEx.ConnectionTest do
   end
 
   test "create_db" do
-   :ok = TestConnection.create_db(@db_name)
-   {:error, _} = TestConnection.create_db(@db_name)
+    assert :ok == TestConnection.create_db(@db_name)
   end
 
   test "drop_db" do
     :ok = TestConnection.create_db(@db_name)
 
-    :ok = TestConnection.drop_db(@db_name)
-    {:error, _} = TestConnection.drop_db(@db_name)
+    assert :ok == TestConnection.drop_db(@db_name)
   end
 
   test "write" do
