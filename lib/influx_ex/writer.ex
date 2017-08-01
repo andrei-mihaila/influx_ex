@@ -43,6 +43,6 @@ defmodule InfluxEx.Writer do
     key = Enum.join([escape_cs(measurement) | tags_strings], ",")
 
     "#{key} #{fields_string} #{time}"
-    |> String.strip
+    |> String.trim()
   end
 end
